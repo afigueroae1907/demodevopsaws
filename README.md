@@ -1,2 +1,2 @@
 # demodevopsaws
-Practica DevOps
+Este es mi laboratorio DevOps.
