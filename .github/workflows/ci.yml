@@ -1,0 +1,16 @@
+name: CI - Validar HTML
+on:
+  push:
+    branches: [ dev ]
+
+jobs: # jobs → es el bloque donde defines qué tareas (trabajos) hará tu pipeline. Piensa en "jobs" como grupos de pasos que se ejecutan juntos.
+  validate:  # Nombre del job. Aqui lo llamamos "validate" porque su tarea es validar que tu "index.html" exista.
+    runs-on: ubuntu-latest # "runs-on": indica en qué sistema operativo se ejecutará el job. Y "ubuntu-latest": ignifica que GitHub te da una máquina virtual con Linux Ubuntu actualizado. ¿Por qué? Porque es es gratis, rápido y estándar: la mayoría de pipelines se corren en Linux. Así tu workflow se ejecuta en su servidor limpio, no en su PC.
+    steps:  # Lista de acciones que se ejecutan dentro del job.
+      - name: Checkout código # Etiqueta descriptiva para saber qué hace ese paso. Y "Checkout código" Significa "descargar el codigo del repo" para que el runner lo tenga disponible. 
+        uses: actions/checkout@v5 # "uses" indica que se usa una acción predefinida de GitHub. Y "actions/checkout@v5" acción oficial que clona tu repositorio en el entorno del pipeline.
+
+      - name: Validar index.html existe # Otro paso con un nombre descriptivo. te dice que este paso revisa si el archivo está presente.
+        run: test -f app/index.html # "run" ejecuta un comando de shell en el runner. Y "test -f app/index.html" comando de Linux que verifica si el archivo existe en esa ruta; si no existe, falla el job.
+
+# Resumen final: Este workflow baja tu repo y comprueba que app/index.html exista; si falta, el CI falla y no puedes pasar a CD.
