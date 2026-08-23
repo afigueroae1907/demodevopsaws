@@ -1,1 +1,2 @@
 Infraestructura simulada: bucket S3 para alojar sitio estático.
+FE
